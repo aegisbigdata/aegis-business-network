@@ -1,0 +1,67 @@
+namespace eu.aegis
+
+participant User identified by uid {
+  o String uid
+  o Double balance default = 0.0
+  --> AEGISAsset[] externalAssets optional
+}
+
+enum AssetType {
+  o Dataset
+  o MicroService
+  o Algorithm
+  o Analysis
+  o Visualization
+  o Other
+}
+
+enum Status {
+  o Free
+  o Paid
+  o Subscription
+  o Private /* Not for sale */
+}
+
+enum ExclusivityPeriod {
+  o None
+  o Subscription
+  o Lifetime
+}
+
+asset AEGISAsset identified by aid {
+  o String aid
+  o AssetType type
+  o Double cost default = 0.0
+  o Status status
+  o ExclusivityPeriod exclusivity default = "None"
+  o String contractText optional
+  --> User owner
+}
+
+/* Load money to a user's account */
+transaction LoadBalance {
+  o Double amount
+  --> User user
+}
+
+/* Change AEGISAsset properties */
+transaction ChangeAssetCost {
+  o Double newCost
+  --> AEGISAsset relatedAsset
+}
+
+transaction ChangeAssetStatus {
+  o Status newStatus
+  --> AEGISAsset relatedAsset
+}
+
+transaction ChangeExclusivity {
+  o ExclusivityPeriod newPeriod
+  --> AEGISAsset relatedAsset
+}
+
+/* Buy an AEGISAsset */
+transaction BuyAsset {
+  --> User buyer
+  --> AEGISAsset relatedAsset
+}

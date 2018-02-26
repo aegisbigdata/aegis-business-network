@@ -1,0 +1,5 @@
+composer-logs
+node_modules
+*.bna
+*.card
+.DS_Store
