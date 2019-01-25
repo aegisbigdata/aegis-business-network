@@ -1,9 +1,21 @@
 namespace eu.aegis
 
+asset Contract identified by tid {
+  o String tid
+  o ExclusivityPeriod exclusivity default = "None"
+  o Double amountPaid default = 0.0
+  o String status default = "Draft"
+  o String validUntil optional
+  o String text optional
+  --> User buyer
+  --> AEGISAsset relatedAsset
+}
+
 participant User identified by uid {
   o String uid
   o Double balance default = 0.0
   --> AEGISAsset[] externalAssets optional
+  --> Contract[] contracts optional
 }
 
 enum AssetType {
@@ -30,11 +42,9 @@ enum ExclusivityPeriod {
 
 asset AEGISAsset identified by aid {
   o String aid
-  o AssetType type
-  o Double cost default = 0.0
+  o AssetType assetType default = "Dataset"
+  o Double cost
   o Status status
-  o ExclusivityPeriod exclusivity default = "None"
-  o String contractText optional
   --> User owner
 }
 
@@ -55,13 +65,7 @@ transaction ChangeAssetStatus {
   --> AEGISAsset relatedAsset
 }
 
-transaction ChangeExclusivity {
-  o ExclusivityPeriod newPeriod
-  --> AEGISAsset relatedAsset
-}
-
 /* Buy an AEGISAsset */
-transaction BuyAsset {
-  --> User buyer
-  --> AEGISAsset relatedAsset
+transaction ValidateContract {
+  --> Contract draftContract
 }

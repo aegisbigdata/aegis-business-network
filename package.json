@@ -1,6 +1,6 @@
 {
   "name": "aegis-business-network",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "The AEGIS business network",
   "scripts": {
     "test": "mocha --recursive"
@@ -9,14 +9,19 @@
   "email": "marios@suite5.eu",
   "license": "Apache-2.0",
   "devDependencies": {
+    "chai": "latest",
     "composer-admin": "latest",
     "composer-client": "latest",
     "composer-common": "latest",
     "composer-connector-embedded": "latest",
-    "chai": "latest",
+    "composer-playground": "^0.16.3",
     "eslint": "latest",
     "istanbul": "latest",
     "mkdirp": "latest",
     "mocha": "latest"
+  },
+  "dependencies": {
+    "composer-cli": "^0.16.3",
+    "composer-rest-server": "^0.16.3"
   }
 }
