@@ -8,6 +8,7 @@ asset Contract identified by tid {
   o String validUntil optional
   o String text optional
   --> User buyer
+  --> User seller
   --> AEGISAsset relatedAsset
 }
 
